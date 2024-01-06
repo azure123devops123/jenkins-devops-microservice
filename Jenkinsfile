@@ -1,4 +1,4 @@
-// Scripted Syntax - Old way 
+// Scripted Pipeline Syntax - Old way 
 // node means machine where you run your pipeline
 // stages will give you more visibility 
 // In the Scripted pipeline stages are not mandatory
@@ -14,10 +14,30 @@
 // 		echo "Integration Test"
 // 	}
 // }
-////////////////////////////////////////////////////
-// Declarative Syntax - New Way
-node {
-		echo "Build"
-		echo "Test"
-		echo "Integration Test"
+
+///////////////////////////////////////////////
+
+// Declarative Pipeline Syntax - New Way
+// stage blocks are optional ( not mandatory )
+
+pipeline {
+	agent any
+	stages {
+		stage ('Build') {
+			steps {
+				echo "Build"
+			}
+		}	
+		stage ('Test') {
+			steps {
+				echo "Test"
+			}
+		}	
+		stage ('Integration Test') {
+			steps {
+				echo "Integration Test"
+			}
+		}	
+
+	  }
 	}
