@@ -43,6 +43,8 @@ pipeline {
 	} 
 	post {
 		// AFTER ALL THE STAGES - WE CAN SAY WHAT TO DO IF ONE OF THE STAGES FAILS OR SUCCESS DO SOME THING etc. 
+		// post build script help us in doing cleanups. 
+		// 5 POST ACTIVITIES 
 		always {
 				echo 'I am awesome.. I run always'
 			}
@@ -52,5 +54,11 @@ pipeline {
 		failure {
 				echo 'I run when you are unsuccessful'
 			}
+		changed {
+			echo 'I run when the status of the build changes - for example fail to success etc.'
+		}	
+		unstable {
+			echo 'I run when a test failure happens'
+		}
 		}
 }
