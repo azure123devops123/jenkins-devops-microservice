@@ -42,13 +42,13 @@ pipeline {
 		 } 
 	} post {
 		// AFTER ALL THE STAGES - WE CAN SAY WHAT TO DO IF ONE OF THE STAGES FAILS OR SUCCESS DO SOME THING etc. 
-			always {
+		always {
 				echo 'I am awesome.. I run always'
 			}
-			success {
+		success {
 				echo 'I run when you are successful'
 			}
-			failure {
+		failure {
 				echo 'I run when you are unsuccessful'
 			}
 		}
