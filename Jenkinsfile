@@ -40,7 +40,8 @@ pipeline {
 				echo "Integration Test"
 			}
 		 } 
-	} post {
+	} 
+	post {
 		// AFTER ALL THE STAGES - WE CAN SAY WHAT TO DO IF ONE OF THE STAGES FAILS OR SUCCESS DO SOME THING etc. 
 		always {
 				echo 'I am awesome.. I run always'
