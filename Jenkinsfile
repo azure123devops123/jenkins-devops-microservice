@@ -19,6 +19,8 @@
 
 // Declarative Pipeline Syntax - New Way
 // stage blocks are optional ( not mandatory )
+// Notice in a Declarative Pipeline after the BUILD - first thing will be Automatically Checkout SCM
+
 
 pipeline {
 	agent any
@@ -38,6 +40,18 @@ pipeline {
 				echo "Integration Test"
 			}
 		}	
-
+		// AFTER ALL THE STAGES - WE CAN SAY WHAT TO DO IF ONE OF THE STAGES FAILS OR SUCCESS DO SOME THING etc. 
+		post {
+			always {
+				echo 'I am awesome.. I run always'
+			}
+			SUCCESS {
+				echo 'I run when you are successful'
+			}
+			FAILS {
+				echo 'I run when you are unsuccessful'
+			}
+		}
 	  }
+	  
 	}
