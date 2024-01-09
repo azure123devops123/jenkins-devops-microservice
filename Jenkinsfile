@@ -27,7 +27,7 @@
 pipeline {
 	// agent any        
 	// if we want to run a docker agent 
-	agent { docker { image 'maven:3.9.6'} }		// It will pull the image from dockerhub and run it as a container and all the stages will run inside container.
+	// agent { docker { image 'maven:3.9.6'} }		// It will pull the image from dockerhub and run it as a container and all the stages will run inside container.
 	agent { docker { image 'node:21-bullseye-slim'} }
 	stages {
 		stage ('Build') {
