@@ -25,17 +25,23 @@
 
 
 pipeline {
-	agent any        
+	agent any
+	environment {    // GO INSIDE Manage Jenkins and get the names of both tools we set earlier (myDocker & myMaven)
+		dockerHome = tool 'myDocker'
+		mavenHome = tool 'myMaven'
+		PATH =  "$dockerHome/bin:$mavenHome/bin:$PATH"      // add both tools to our path
+	}   
 	// if we want to run a docker agent 
 	// agent { docker { image 'maven:3.9.6'} }		// It will pull the image from dockerhub and run it as a container and all the stages will run inside container.
 	// agent { docker { image 'node:21-bullseye-slim'} }
 	stages {
 		stage ('Build') {
 			steps {
-				// sh 'mvn --version'
+				sh 'mvn --version'
+				sh 'docker version'
 				// sh 'node --version'
 				echo "Build"
-				echo "Path - $PATH"		                      // Jenkins agent path
+				echo "Path - $PATH"		                  // Jenkins agent path
 				echo "Build Number - $env.BUILD_NUMBER"   // The current build number
 				echo "Build ID - $env.BUILD_ID"			  // The current build ID
 				echo "Job Name - $env.JOB_NAME"           // Name of the project of this build
