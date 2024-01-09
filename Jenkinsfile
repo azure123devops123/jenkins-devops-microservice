@@ -30,6 +30,7 @@ pipeline {
 	stages {
 		stage ('Build') {
 			steps {
+				echo "MAVEN VERSION IS"
 				sh 'mvn --version'
 				echo "Build"
 			}
