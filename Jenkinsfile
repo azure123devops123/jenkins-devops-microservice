@@ -52,22 +52,22 @@ pipeline {
 
 		stage ('Compile') {
 			steps {
-				sh "mvn clean compile"
+				sh "mvn clean compile"	//Its download all the dependencies and also compile the java code (its same like npm instll)
 			}
 		}	
 
 		stage ('Test') {
 			steps {
 				//echo "Test"
-				sh "mvn test"
+				sh "mvn test"		// it will run the unit tests located inside directory => cd src/test/java/com/in28minutes/microservices/currencyexchangeservice/resource/CurrencyExchangeControllerTest.java
 			}
 		}	
-		stage ('Integration Test') {
-			steps {
-				// echo "Integration Test"
-				sh "mvn failsafe:integration-test failsafe:verify"
-			}
-		 } 	 
+		// stage ('Integration Test') {
+		// 	steps {
+		// 		// echo "Integration Test"
+		// 		sh "mvn failsafe:integration-test failsafe:verify"		// it will run the integration tests using cucumber located inside directory => cd src/test/java/com/in28minutes/microservices/currencyexchangeservice/cucumber/
+		// 	}
+		//  } 	 
 	}
 
 	post {
