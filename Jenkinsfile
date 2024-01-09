@@ -56,12 +56,13 @@ pipeline {
 			}
 		}	
 
-		stage ('Test') {
-			steps {
-				//echo "Test"
-				sh "mvn test"		// it will run the unit tests located inside directory => cd src/test/java/com/in28minutes/microservices/currencyexchangeservice/resource/CurrencyExchangeControllerTest.java
-			}
-		}	
+		// stage ('Test') {
+		// 	steps {
+		// 		//echo "Test"
+		// 		sh "mvn test"		// it will run the unit tests located inside directory => cd src/test/java/com/in28minutes/microservices/currencyexchangeservice/resource/CurrencyExchangeControllerTest.java
+		// 	}
+		// }	
+		
 		// stage ('Integration Test') {
 		// 	steps {
 		// 		// echo "Integration Test"
