@@ -26,11 +26,11 @@
 
 pipeline {
 	// agent any
-	agent { docker { image 'maven:3.9.5' } }
+	agent { docker { image 'maven:3.9.5'} }
 	stages {
 		stage ('Build') {
 			steps {
-				sh 'mvn --version'				// shell script 
+				sh "mvn --version"				// shell script 
 				echo "Build"
 			}
 		}	
