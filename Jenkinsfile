@@ -35,7 +35,7 @@ pipeline {
 	// agent { docker { image 'maven:3.9.6'} }		// It will pull the image from dockerhub and run it as a container and all the stages will run inside container.
 	// agent { docker { image 'node:21-bullseye-slim'} }
 	stages {
-		stage ('Build') {
+		stage ('Checkout') {
 			steps {
 				sh 'mvn --version'
 				sh 'docker version'
@@ -49,21 +49,25 @@ pipeline {
 			    echo "Build URL - $env.BUILD_URL"
 			}
 		}	
+
+		stage ('Compile') {
+			steps {
+				sh "mvn clean compile"
+			}
+		}	
+
 		stage ('Test') {
 			steps {
-				echo "Test"
+				//echo "Test"
+				sh "mvn test"
 			}
 		}	
 		stage ('Integration Test') {
 			steps {
-				echo "Integration Test"
+				// echo "Integration Test"
+				sh "mvn failsafe:integration-test failsafe:verify"
 			}
-		 } 
-		stage ('Final Test') {
-			steps {
-				echo "Final Test"
-			}
-		 } 		 
+		 } 	 
 	}
 
 	post {
