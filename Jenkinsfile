@@ -44,6 +44,11 @@ pipeline {
 				echo "Integration Test"
 			}
 		 } 
+		stage ('Final Test') {
+			steps {
+				echo "Final Test"
+			}
+		 } 		 
 	}
 
 	post {
