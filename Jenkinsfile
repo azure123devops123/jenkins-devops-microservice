@@ -1,3 +1,5 @@
+/////////////////////////////////////////////// Scripted Pipeline ///////////////////////////////////////////////
+
 // Scripted Pipeline Syntax - Old way 
 // node means machine where you run your pipeline
 // stages will give you more visibility 
@@ -15,7 +17,7 @@
 // 	}
 // }
 
-///////////////////////////////////////////////
+/////////////////////////////////////////////// Declarative Pipeline ///////////////////////////////////////////////
 
 // Declarative Pipeline Syntax - New Way
 // stage blocks are optional ( not mandatory )
@@ -23,10 +25,12 @@
 
 
 pipeline {
-	agent any
+	// agent any
+	agent { docker { image 'maven:3.9.5' } }
 	stages {
 		stage ('Build') {
 			steps {
+				sh 'mvn --version'				// shell script 
 				echo "Build"
 			}
 		}	
@@ -40,7 +44,8 @@ pipeline {
 				echo "Integration Test"
 			}
 		 } 
-	} 
+	}
+
 	post {
 		// AFTER ALL THE STAGES - WE CAN SAY WHAT TO DO IF ONE OF THE STAGES FAILS OR SUCCESS DO SOME THING etc. 
 		// post build script help us in doing cleanups. 
