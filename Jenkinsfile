@@ -25,16 +25,21 @@
 
 
 pipeline {
-	// agent any        
+	agent any        
 	// if we want to run a docker agent 
 	// agent { docker { image 'maven:3.9.6'} }		// It will pull the image from dockerhub and run it as a container and all the stages will run inside container.
-	agent { docker { image 'node:21-bullseye-slim'} }
+	// agent { docker { image 'node:21-bullseye-slim'} }
 	stages {
 		stage ('Build') {
 			steps {
 				// sh 'mvn --version'
-				sh 'node --version'
+				// sh 'node --version'
 				echo "Build"
+				echo "$PATH"		                      // Jenkins agent path
+				echo "Build Number - $env.BUILD_NUMBER"   // The current build number
+				echo "Build ID - $env.BUILD_ID"			  // The current build ID
+				echo "Job Name - $env.JOB_NAME"           // Name of the project of this build
+				echo "Build Tag - $env.BUILD_TAG"		  // String of "jenkins-${JOB_NAME}-${BUILD_NUMBER}". All forward slashes ("/") in the JOB_NAME are replaced with dashes ("-"). Convenient to put into a resource file, a jar file, etc for easier identification.
 			}
 		}	
 		stage ('Test') {
