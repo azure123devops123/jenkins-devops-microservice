@@ -35,11 +35,12 @@ pipeline {
 				// sh 'mvn --version'
 				// sh 'node --version'
 				echo "Build"
-				echo "$PATH"		                      // Jenkins agent path
+				echo "Path - $PATH"		                      // Jenkins agent path
 				echo "Build Number - $env.BUILD_NUMBER"   // The current build number
 				echo "Build ID - $env.BUILD_ID"			  // The current build ID
 				echo "Job Name - $env.JOB_NAME"           // Name of the project of this build
 				echo "Build Tag - $env.BUILD_TAG"		  // String of "jenkins-${JOB_NAME}-${BUILD_NUMBER}". All forward slashes ("/") in the JOB_NAME are replaced with dashes ("-"). Convenient to put into a resource file, a jar file, etc for easier identification.
+			    echo "Build URL - $env.BUILD_URL"
 			}
 		}	
 		stage ('Test') {
