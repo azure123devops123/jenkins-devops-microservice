@@ -98,10 +98,8 @@ pipeline {
 				script {         
 					// to push the image to docker hub we need to put the wrapper (docker.withRegistry) around below (dockerImage.push)
 					docker.withRegistry('','dockerhubID') {        // first parameter is empty because dockerhub is a default docker registry // second paramter is docker credentials ID that we just created
-
-					dockerImage.push();
-					dockerImage.push('latest');   // We can't push without Jenkins having Docker Hub Credentials (DockerID and Password)
-					
+					    dockerImage.push();
+					    dockerImage.push('latest');   // We can't push without Jenkins having Docker Hub Credentials (DockerID and Password)
 					} // end of wrapper
 				}
 			}
