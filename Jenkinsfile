@@ -35,6 +35,8 @@ pipeline {
 	// agent { docker { image 'maven:3.9.6'} }		// It will pull the image from dockerhub and run it as a container and all the stages will run inside container.
 	// agent { docker { image 'node:21-bullseye-slim'} }
 	stages {
+		
+		// CHECKOUT IS AUTOMATIC - HERE WE CAN JUST PRINT THE USEFUL INFORMATION
 		stage ('Checkout') {
 			steps {
 				sh 'mvn --version'
@@ -50,12 +52,14 @@ pipeline {
 			}
 		}	
 
+        // COMPILE THE JAVA CODE
 		stage ('Compile') {
 			steps {
 				sh "mvn clean compile"	//Its download all the dependencies and also compile the java code (its same like npm instll)
 			}
 		}	
 
+        // // UNIT TESTS
 		// stage ('Test') {
 		// 	steps {
 		// 		//echo "Test"
@@ -63,6 +67,7 @@ pipeline {
 		// 	}
 		// }	
 		
+		// // INTEGRATION TESTS USING CUCUMBER
 		// stage ('Integration Test') {
 		// 	steps {
 		// 		// echo "Integration Test"
@@ -70,9 +75,35 @@ pipeline {
 		// 	}
 		//  } 
 
-		stage ('Build'){
+        // CREATE A JAR FILE
+		stage ('Package'){
 			steps {
-				sh "mvn clean package"
+				sh "mvn package -DskipTests"                    // -DskipTests MEANS SKIP THE UNIT AND INTEGRATION TESTS
+			}
+		}
+
+        // BUILD A DOCKER IMAGE
+		stage ('Build Docker Image'){
+			steps {
+				// "docker build -t devopstech24/jenkins-devops-microservice:$env.BUILD_TAG"      // Primitive (OLD) Way
+				script {
+					dockerImage = docker.build("devopstech24/jenkins-devops-microservice:${env.BUILD_TAG}")
+				}
+			}
+		}
+
+        // PUSH THE DOCKER IMAGE
+		stage ('Push Docker Image') {
+			steps {
+				script {         
+					// to push the image to docker hub we need to put the wrapper (docker.withRegistry) around below (dockerImage.push)
+					docker.withRegistry('','dockerhubID') {        // first parameter is empty because dockerhub is a default docker registry // second paramter is docker credentials ID that we just created
+
+					dockerImage.push('');
+					dockerImage.push('latest');   // We can't push without Jenkins having Docker Hub Credentials (DockerID and Password)
+					
+					} // end of wrapper
+				}
 			}
 		}
 	}
