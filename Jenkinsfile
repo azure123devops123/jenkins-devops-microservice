@@ -68,7 +68,13 @@ pipeline {
 		// 		// echo "Integration Test"
 		// 		sh "mvn failsafe:integration-test failsafe:verify"		// it will run the integration tests using cucumber located inside directory => cd src/test/java/com/in28minutes/microservices/currencyexchangeservice/cucumber/
 		// 	}
-		//  } 	 
+		//  } 
+
+		stage ('Build'){
+			steps {
+				sh "mvn clean package"
+			}
+		}
 	}
 
 	post {
